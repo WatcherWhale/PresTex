@@ -14,6 +14,9 @@ div.body
 
 div.body div.object
 {
+    max-height: 100%;
+    max-width: 100%;
+
     cursor: pointer;
     outline: 3px solid transparent;
 

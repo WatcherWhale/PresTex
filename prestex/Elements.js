@@ -75,13 +75,16 @@ class Func extends CanvasElement
     constructor(id,x,y,w,h,expression)
     {
         super(id,x,y,w,h);
-        this.func = new Function('x','return ' + expression);
+        this._func = this.BuildExpression(expression);
+        this.func = expression;
         this.scale = 100;
     }
 
     Render(offset)
     {
         super.Render(offset);
+
+        this._func = this.BuildExpression(this.func);
 
         let canvas = $("div.body #" + this.id + " canvas")[0];
         let ctx = canvas.getContext("2d");
@@ -121,10 +124,21 @@ class Func extends CanvasElement
         ctx.strokeStyle = color;
 
         for (var i=iMin;i<=iMax;i++) {
-        xx = dx*i; yy = scale*this.func(xx/scale);
+        xx = dx*i; yy = scale*this._func.eval({x:xx/scale});
         if (i==iMin) ctx.moveTo(x0+xx,y0-yy);
         else         ctx.lineTo(x0+xx,y0-yy);
         }
         ctx.stroke();
     }
+
+    BuildExpression(str)
+    {
+        var f = math.compile(str);
+        return f;
+    }
 }
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};

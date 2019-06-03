@@ -2,16 +2,19 @@ var currentObject;
 
 $(window).ready(function()
 {
-    var graph = new Func(0,0,0,1920,1080,"Math.abs(Math.sin(x))");
+    var graph = new Func(0,0,0,1920,1080,"sin(x)");
     presentation.GetCurrentSlide().objects.push(graph);
 
-    CreateLatex("f(x)=\\left|sin(x)\\right|",1020,440);
-
-    $("div.body div.object").click(function(e)
-    {
-        OpenProperties($(this).attr('id'));
-    });
+    CreateLatex("f(x)=sin(x)",1020,400);
 });
+
+renderEvents.on('drawn',function(e)
+    {
+        $("div.body div.object").click(function(e)
+        {
+            OpenProperties($(this).attr('id'));
+        });
+    });
 
 function OpenProperties(objectIndex)
 {

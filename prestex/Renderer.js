@@ -1,3 +1,5 @@
+var renderEvents = new EventEmitter();
+
 $(window).ready(function()
 {
     DrawEditorSlide(presentation.GetCurrentSlide());
@@ -22,4 +24,6 @@ function DrawEditorSlide(slide)
     $("div.body").css({"left":x,"top":y,"height":h,"width":w});
 
     slide.Render({x:x,y:y,s:shrink});
+
+    renderEvents.emit("drawn",{'target':'editor'});
 }
