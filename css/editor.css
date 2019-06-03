@@ -2,7 +2,8 @@ body
 {
     background: rgb(211, 211, 211);
 
-    font-family: 'Asana-Math', sans-serif;
+    font-family: KaTeX_Main, sans-serif;
+    font-style: italic;
 }
 
 div.body
@@ -67,6 +68,6 @@ div.objects
 
 @font-face
 {
-    font-family: Asana-Math;
-    src: url(fonts/Asana-Math.otf);
+    font-family: 'Computer Modern Serif';
+    src: url(fonts/cmunti.ttf);
 }
