@@ -78,6 +78,7 @@ class Func extends CanvasElement
         this._func = this.BuildExpression(expression);
         this.func = expression;
         this.scale = 100;
+        this.axes = "true";
     }
 
     Render(offset)
@@ -114,7 +115,7 @@ class Func extends CanvasElement
 
     Graph(ctx,axes,color,thick)
     {
-        this.ShowAxes(ctx,axes);
+        if(this.axes == "true") this.ShowAxes(ctx,axes);
 
         var xx, yy, dx=0.1, x0=axes.x0, y0=axes.y0, scale=axes.scale;
         var iMax = Math.round((ctx.canvas.width-x0)/dx);
