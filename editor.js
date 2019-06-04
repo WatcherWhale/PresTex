@@ -7,9 +7,18 @@ $(window).ready(function()
     var graph = new Func(slide.objects.length,0,0,1920,1080,"sin(x)");
     slide.objects.push(graph);
 
-    var txt = new LatexElement(slide.objects.length,1020,300,"f(x)=sin(x)");
-    txt.fontSize = 30;
+    var txt = new TextElement(slide.objects.length,10,10,"Example: Graphs and Latex text");
+    txt.fontSize = 50;
+    txt.bold = "true";
     slide.objects.push(txt);
+
+    var tex = new LatexElement(slide.objects.length,1050,380,"f(x)=sin(x)");
+    tex.fontSize = 30;
+    slide.objects.push(tex);
+
+    tex = new LatexElement(slide.objects.length,10,70,"sin(x) = cos\\left( \\frac{\\pi}{2} - x\\right)");
+    tex.fontSize = 30;
+    slide.objects.push(tex);
 
     DrawEditorSlide(slide);
 });

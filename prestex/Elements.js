@@ -18,6 +18,11 @@ class Element
         var style = "position:absolute;left:" + x + "px;top:"+y+"px;";
         $("div.body").append("<div class='object' id='" + this.id + "' style='" + style + "'></div>");
     }
+
+    Create(offset)
+    {
+        //TODO: Create div if it doesn't exist
+    }
 }
 
 class TextElement extends Element
@@ -26,34 +31,41 @@ class TextElement extends Element
     {
         super(id,x,y);
         this.text = text;
+        this.fontSize = 20;
+        this.bold = "false";
     }
 
     Render(offset)
     {
         super.Render(offset);
+
+        if(this.bold != "true" && this.bold != "false") this.bold = "false";
+
         $("div.body #" + this.id).append("<span>" + this.text + "</span>");
-        var size = $("div.body #" + this.id + " span").css("font-size");
-        console.log(size);
+
+        var bold = this.bold == "true" ? "bold" : "normal";
+        var style = {"font-size":this.fontSize*this._s + "px", "font-weight":bold};
+
+        $("div.body #" + this.id).css(style);
     }
 }
 
-class LatexElement extends Element
+class LatexElement extends TextElement
 {
     constructor(id,x,y,text)
     {
-        super(id,x,y);
-        this.text = text;
-        this.fontSize = 20;
+        super(id,x,y,text);
+        delete this.bold;
     }
 
     Render(offset)
     {
         super.Render(offset);
+        delete this.bold;
+
         katex.render(this.text, $("div.body #" + this.id)[0], {
             throwOnError: false
         });
-
-        $("div.body #" + this.id + " span.katex-html").css("font-size",this.fontSize*this._s + "px");
     }
 }
 
@@ -129,9 +141,39 @@ class Func extends CanvasElement
         ctx.stroke();
     }
 
+    DrawGraphLines(ctx) 
+    {
+        ctx.beginPath();
+        ctx.strokeStyle = "rgb(230,230,230)";
+
+        //X Lines
+        var h = this.h * this._s;
+        var w = this.w * this._s;
+        var step = this.scale * this._s;
+
+        var offsetX = this._origin.x % step;
+        var offsetY = this._origin.y % step;
+
+        for(var y = offsetY; y <= h; y += step)
+        {
+            ctx.moveTo(0,y);
+            ctx.lineTo(ctx.canvas.width,y);
+        }
+
+        //Y Lines
+        for(var x = offsetX; x <= w; x += step)
+        {
+            ctx.moveTo(x,0)
+            ctx.lineTo(x,this.h * this._s);
+        }
+
+        ctx.stroke();
+    }
+
     Graph(ctx,color,thick)
     {
         ctx.clearRect(0,0,this.w * this._s,this.h * this._s);
+        this.DrawGraphLines(ctx);
         if(this.showAxes != "false") this.DrawAxes(ctx);
 
         ctx.beginPath();
