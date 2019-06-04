@@ -5,6 +5,7 @@ $(window).ready(function()
     var slide = presentation.GetCurrentSlide();
 
     var graph = new Func(slide.objects.length,0,0,1920,1080,"sin(x)");
+    graph.scale = 50;
     slide.objects.push(graph);
 
     var txt = new TextElement(slide.objects.length,10,10,"Example: Graphs and Latex text");
@@ -12,7 +13,7 @@ $(window).ready(function()
     txt.bold = "true";
     slide.objects.push(txt);
 
-    var tex = new LatexElement(slide.objects.length,1050,380,"f(x)=sin(x)");
+    var tex = new LatexElement(slide.objects.length,1000,390,"f(x)=sin(x)");
     tex.fontSize = 30;
     slide.objects.push(tex);
 

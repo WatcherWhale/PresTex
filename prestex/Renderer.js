@@ -12,8 +12,6 @@ $(window).ready(function()
 
 function DrawEditorSlide(slide)
 {
-    $("div.body").empty();
-
     let h = 0.75 * window.innerHeight;
     let w = 16/9 * h;
     let x = (window.innerWidth - w)/2;

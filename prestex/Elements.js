@@ -11,17 +11,24 @@ class Element
     Render(offset)
     {
         this._s = offset.s;
-
+        this.Create(offset); 
+        
         var x = this.x*this._s;
-        var y = this.y*this._s;
+        var y = this.y*this._s;        
+        var style = {position:"absolute",left:x + "px", top:y + "px"};
 
-        var style = "position:absolute;left:" + x + "px;top:"+y+"px;";
-        $("div.body").append("<div class='object' id='" + this.id + "' style='" + style + "'></div>");
+        $("div.body div#" + this.id).css(style);
     }
 
-    Create(offset)
+    Create()
     {
-        //TODO: Create div if it doesn't exist
+        if($("div.body div.object#" + this.id).length == 0)
+        {
+            $("div.body").append("<div class='object' id='" + this.id + "'></div>");
+            return false;
+        }
+
+        return true;
     }
 }
 
@@ -33,20 +40,31 @@ class TextElement extends Element
         this.text = text;
         this.fontSize = 20;
         this.bold = "false";
+        this.color = "black";
     }
 
     Render(offset)
     {
         super.Render(offset);
-
+        this.Create();
+        
         if(this.bold != "true" && this.bold != "false") this.bold = "false";
-
-        $("div.body #" + this.id).append("<span>" + this.text + "</span>");
-
         var bold = this.bold == "true" ? "bold" : "normal";
-        var style = {"font-size":this.fontSize*this._s + "px", "font-weight":bold};
+        var style = {"font-size":this.fontSize*this._s + "px", "font-weight":bold,"color":this.color};
 
         $("div.body #" + this.id).css(style);
+        $("div.body #" + this.id + " span.text").html(this.text);
+    }
+
+    Create()
+    {
+        if(!super.Create())
+        {
+            $("div.body #" + this.id).append("<span class='text'>" + this.text + "</span>");
+            return false;
+        }
+
+        return true;
     }
 }
 
@@ -82,11 +100,27 @@ class CanvasElement extends Element
     Render(offset)
     {
         super.Render(offset);
+        this.Create(offset);
 
         var h = offset.s*this.h;
         var w = offset.s*this.w;
 
-        $("div.body #" + this.id).append("<canvas height='" + h + "' width='" + w + "'></canvas>");
+        this._canvas = $("div.body div#" + this.id + " canvas")[0];
+        this._ctx = this._canvas.getContext("2d");
+
+        this._canvas.height = h;
+        this._canvas.width = w;
+    }
+
+    Create()
+    {
+        if(!super.Create())
+        {
+            $("div.body #" + this.id).append("<canvas></canvas>");
+            return false;
+        }
+
+        return true;
     }
 }
 
@@ -107,6 +141,9 @@ class Func extends CanvasElement
         this.origin = "middle"; //Possible values: middle;bottom; x,y
         this._origin = {x:0,y:0};
         this.SetOrigin();
+
+        this.color = "rgb(128,128,128)";
+        this.thickness = 2;
     }
 
     Render(offset)
@@ -118,10 +155,7 @@ class Func extends CanvasElement
         this.BuildExpression();
         this.SetOrigin();
 
-        let canvas = $("div.body #" + this.id + " canvas")[0];
-        let ctx = canvas.getContext("2d");
-
-        this.Graph(ctx,"rgb(128,128,128)",2);
+        this.Graph(this._ctx,this.color,this.thickness);
     }
 
     DrawAxes(ctx) 
