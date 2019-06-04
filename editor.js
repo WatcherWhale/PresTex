@@ -2,10 +2,16 @@ var currentObject;
 
 $(window).ready(function()
 {
-    var graph = new Func(0,0,0,1920,1080,"sin(x)");
-    presentation.GetCurrentSlide().objects.push(graph);
+    var slide = presentation.GetCurrentSlide();
 
-    CreateLatex("f(x)=sin(x)",1020,400);
+    var graph = new Func(slide.objects.length,0,0,1920,1080,"sin(x)");
+    slide.objects.push(graph);
+
+    var txt = new LatexElement(slide.objects.length,1020,300,"f(x)=sin(x)");
+    txt.fontSize = 30;
+    slide.objects.push(txt);
+
+    DrawEditorSlide(slide);
 });
 
 renderEvents.on('drawn',function(e)
@@ -14,6 +20,8 @@ renderEvents.on('drawn',function(e)
         {
             OpenProperties($(this).attr('id'));
         });
+
+        if(currentObject) OpenProperties(currentObject.id);
     });
 
 function OpenProperties(objectIndex)
