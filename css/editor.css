@@ -63,11 +63,3 @@ div.objects
 
     background-color: #ffffff;
 }
-
-
-
-@font-face
-{
-    font-family: 'Computer Modern Serif';
-    src: url(fonts/cmunti.ttf);
-}

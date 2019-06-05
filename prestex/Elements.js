@@ -5,6 +5,8 @@ class Element
         this.id = id;
         this.x = x;
         this.y = y;
+        this.hide = "false";
+
         this._s = 1;
     }
 
@@ -18,6 +20,16 @@ class Element
         var style = {position:"absolute",left:x + "px", top:y + "px"};
 
         $("div.body div#" + this.id).css(style);
+
+        if(this.hide == "true")
+        {
+            $("div.body div#" + this.id).hide();
+        }
+        else
+        {
+            this.hide = "false";
+            $("div.body div#" + this.id).show();
+        }
     }
 
     Create()
@@ -110,6 +122,8 @@ class CanvasElement extends Element
 
         this._canvas.height = h;
         this._canvas.width = w;
+
+        $("div.body div#" + this.id).css({width:w,height:h});
     }
 
     Create()
@@ -124,7 +138,8 @@ class CanvasElement extends Element
     }
 }
 
-class Func extends CanvasElement
+//TODO: Add multiple functions to the element, with colours etc.
+class FuncElement extends CanvasElement
 {
     constructor(id,x,y,w,h,expression)
     {
@@ -260,6 +275,36 @@ class Func extends CanvasElement
     }
 
     //TODO: Add graphpaper
+}
+
+class ChartElement extends CanvasElement
+{
+    constructor(id,x,y,w,h)
+    {
+        super(id,x,y,w,h);
+        this.data = "{}";
+        this._data = {};
+    }
+
+    Render(offset)
+    {
+        super.Render(offset);
+        this._data = JSON.parse(this.data);
+
+        this._chart = new Chart(this._ctx, {
+            type: 'bar',
+            data: this._data,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
 }
 
 String.prototype.replaceAll = function(search, replacement) {
