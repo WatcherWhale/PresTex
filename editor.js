@@ -1,27 +1,31 @@
 var currentObject;
+var keys = {left:37,top:38,right:39,down:40,enter:13,space:32};
 
 $(window).ready(function()
 {
-    var slide = presentation.GetCurrentSlide();
+    Chart.defaults.global.defaultFontStyle = "'KaTeX_Mai'";
+    LoadExamplePresentation();
 
-    var graph = new Func(slide.objects.length,0,0,1920,1080,"sin(x)");
-    graph.scale = 50;
-    slide.objects.push(graph);
+    DrawEditorSlide(presentation.GetCurrentSlide());
 
-    var txt = new TextElement(slide.objects.length,10,10,"Example: Graphs and Latex text");
-    txt.fontSize = 50;
-    txt.bold = "true";
-    slide.objects.push(txt);
+    $(window).resize(function()
+    {
+        DrawEditorSlide(presentation.GetCurrentSlide());
+    });
 
-    var tex = new LatexElement(slide.objects.length,1000,390,"f(x)=sin(x)");
-    tex.fontSize = 30;
-    slide.objects.push(tex);
-
-    tex = new LatexElement(slide.objects.length,10,70,"sin(x) = cos\\left( \\frac{\\pi}{2} - x\\right)");
-    tex.fontSize = 30;
-    slide.objects.push(tex);
-
-    DrawEditorSlide(slide);
+    $("body").on('keydown',function(e)
+    {
+        if(e.which == keys.right)
+        {
+            presentation.NextSlide();
+            DrawEditorSlide(presentation.GetCurrentSlide());
+        }
+        else if(e.which == keys.left)
+        {
+            presentation.PreviousSlide();
+            DrawEditorSlide(presentation.GetCurrentSlide());
+        }
+    });
 });
 
 renderEvents.on('drawn',function(e)
