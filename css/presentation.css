@@ -1,0 +1,22 @@
+body
+{
+    background: #ffffff;
+
+    font-family: KaTeX_Main, sans-serif;
+    font-style: italic;
+}
+
+div.body
+{
+    position: absolute;
+
+    background: #ffffff;
+}
+
+div.body div.object
+{
+    max-height: 100%;
+    max-width: 100%;
+
+    cursor: default;
+}
