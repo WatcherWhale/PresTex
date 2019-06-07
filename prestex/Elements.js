@@ -138,8 +138,8 @@ class CanvasElement extends Element
     }
 }
 
-//TODO: Add multiple functions to the element, with colours etc.
-class FuncElement extends CanvasElement
+//TODO: Convert to graph element
+class GraphElement extends CanvasElement
 {
     constructor(id,x,y,w,h,expression)
     {
@@ -273,10 +273,9 @@ class FuncElement extends CanvasElement
         this._origin.x *= this._s;
         this._origin.y  *= this._s;
     }
-
-    //TODO: Add graphpaper
 }
 
+//TODO: Options
 class ChartElement extends CanvasElement
 {
     constructor(id,x,y,w,h)

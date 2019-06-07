@@ -23,6 +23,7 @@ class Presentation
 
             //Copies the objects of the previous slide to the this slide
             slide.objects = _.cloneDeep(this.slides[this.slides.length - 1].objects);
+            slide.graphs = _.cloneDeep(this.slides[this.slides.length - 1].graphs);
 
             this.slides.push(slide);
         }
