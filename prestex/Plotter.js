@@ -191,7 +191,7 @@ class Plotter
 
 Plotter.origin = {x:1/2,y:1/2};
 Plotter.scale = 1;
-Plotter.precision = 0.01;
+Plotter.precision = 0.1;
 Plotter.style = {
     origin:{
         thickness: 2,

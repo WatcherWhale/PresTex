@@ -17,7 +17,7 @@ function DrawEditorSlide(slide)
 
     ExecuteAsync(function()
     {
-        slide.Render({x:x,y:y,s:shrink});
+        slide.Render({s:shrink});
         PlotGraphs(slide.graphs,shrink);
     });
 
@@ -29,8 +29,11 @@ function DrawSlide(slide)
     let shrink = window.innerWidth/1920;
     $("div.body").css({"left":0,"top":0,"height":'100%',"width":'100%',"overflow":"hidden"});
 
-    slide.Render({x:0,y:0,s:shrink});
-    PlotGraphs(slide.graphs,shrink);
+    ExecuteAsync(function()
+    {
+        slide.Render({s:shrink});
+        PlotGraphs(slide.graphs,shrink);
+    });
 
     renderEvents.emit("drawn",{'target':'present'});
 }
