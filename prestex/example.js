@@ -25,12 +25,12 @@ function LoadExamplePresentation()
     slide.objects.push(txt);
 
     //Create a latex text element
-    var tex = new LatexElement(slide.objects.length,1000,390,"f(x)=sin(x)");
+    var tex = new LatexElement(slide.objects.length,1000,350,"f(x)=sin(x)");
     tex.fontSize = 30;
     tex.color = "blue";
     slide.objects.push(tex);
 
-    var tex2 = new LatexElement(slide.objects.length,1200,200,"r=\\frac{1}{2} \\cdot \\theta");
+    var tex2 = new LatexElement(slide.objects.length,1250,200,"r=\\frac{1}{2} \\cdot \\theta");
     tex2.fontSize = 30;
     tex2.color = "red";
     slide.objects.push(tex2);
@@ -38,6 +38,7 @@ function LoadExamplePresentation()
     //Create another latex text element
     var tex3 = new LatexElement(slide.objects.length,10,70,"sin(x) = cos\\left( \\frac{\\pi}{2} - x\\right)");
     tex3.fontSize = 30;
+    tex3.displayMode = "false";
     slide.objects.push(tex3);
 
     //Create a chart

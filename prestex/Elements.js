@@ -86,14 +86,21 @@ class LatexElement extends TextElement
     {
         super(id,x,y,text);
         delete this.bold;
+        this.displayMode = "true";
+        this.colorIsTextColor = "true";
     }
 
     Render(offset)
     {
+        if(this.displayMode != "false") this.displayMode == "true";
+        if(this.colorIsTextColor != "false") this.colorIsTextColor == "true";
+
         super.Render(offset);
         delete this.bold;
 
         katex.render(this.text, $("div.body #" + this.id)[0], {
+            displayMode: this.displayMode == "true",
+            colorIsTextColor: this.colorIsTextColor == "true",
             throwOnError: false
         });
     }
