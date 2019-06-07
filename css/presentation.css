@@ -4,6 +4,13 @@ body
 
     font-family: KaTeX_Main, sans-serif;
     font-style: italic;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 div.body
