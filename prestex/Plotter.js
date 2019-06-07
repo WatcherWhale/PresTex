@@ -20,8 +20,8 @@ class Plotter
         ctx.lineWidth = graph.thickness;
         ctx.strokeStyle = graph.color;
 
-        const startT = -Plotter.origin.x * w;
-        const endI = (ctx.canvas.width)/Plotter.precision;
+        const startT = graph.interval[0] == "R" ? -Plotter.origin.x * w : graph.interval[0];
+        const endI = graph.interval[0] == "R" ? (ctx.canvas.width)/Plotter.precision : graph.interval[1]/Plotter.precision;
         const startI = Math.round(startT/Plotter.precision);
 
         //Find begin Point
@@ -31,8 +31,18 @@ class Plotter
         for(let i = startI + 1; i <= endI; i++)
         {
             //(x,y) = F(t)
-            let coor = graph.GetCoordinates(i*Plotter.precision/Plotter.scale);
-            coor = Plotter.Scale(coor,Plotter.scale);
+            let coor = [];
+
+            if(graph.scaled[0])
+            {
+                coor = graph.GetCoordinates(i*Plotter.precision/Plotter.scale);
+            }
+            else
+            {
+                coor = graph.GetCoordinates(i*Plotter.precision);
+            }
+            
+            if(graph.scaled[1]) coor = Plotter.Scale(coor,Plotter.scale);
 
             ctx.lineTo(Plotter.origin.x*w +coor[0],Plotter.origin.y*h - coor[1]);
         }

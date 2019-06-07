@@ -14,6 +14,8 @@ function LoadExamplePresentation()
 
     var spiral = new PolarGraph("1/2 * t");
     spiral.color = "red";
+    spiral.interval = [0,10];
+    spiral.scaled = [false,true];
     slide.graphs.push(spiral);
 
     //Create The title text
@@ -28,10 +30,15 @@ function LoadExamplePresentation()
     tex.color = "blue";
     slide.objects.push(tex);
 
-    //Create another latex text element
-    var tex2 = new LatexElement(slide.objects.length,10,70,"sin(x) = cos\\left( \\frac{\\pi}{2} - x\\right)");
+    var tex2 = new LatexElement(slide.objects.length,1200,200,"r=\\frac{1}{2} \\cdot \\theta");
     tex2.fontSize = 30;
+    tex2.color = "red";
     slide.objects.push(tex2);
+
+    //Create another latex text element
+    var tex3 = new LatexElement(slide.objects.length,10,70,"sin(x) = cos\\left( \\frac{\\pi}{2} - x\\right)");
+    tex3.fontSize = 30;
+    slide.objects.push(tex3);
 
     //Create a chart
     var chart = new ChartElement(slide.objects.length,10,70,500,500);
@@ -69,7 +76,10 @@ function LoadExamplePresentation()
     //Hide other elements
     slide2.objects[1].hide = "true";
     slide2.objects[2].hide = "true";
+    slide2.objects[3].hide = "true";
+
     slide2.graphs[0].visible = false;
+    slide2.graphs[1].visible = false;
 
     //Set the presentation to the example presentation
     presentation = example;

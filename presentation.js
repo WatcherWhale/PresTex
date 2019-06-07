@@ -19,9 +19,4 @@ $(window).ready(function()
             DrawSlide(presentation.GetCurrentSlide());
         }
     });
-
-    $(window).resize(function()
-    {
-        DrawSlide(presentation.GetCurrentSlide());
-    });
 });

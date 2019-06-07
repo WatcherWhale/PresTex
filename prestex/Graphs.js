@@ -6,6 +6,8 @@ class Graph
         this.color = "black";
         this.thickness = 2;
         this.visible = true;
+        this.interval = ["R"];
+        this.scaled = [true,true];
     }
 
     SetExpression(expression)
@@ -53,7 +55,9 @@ class ParameterGraph extends Graph
         this.color = "rgb(128,128,128)";
         this.thickness = 2;
         this.visible = true;
-        
+        this.interval = ["R"];
+        this.scaled = [true,true];
+
         this.SetExpression(expression);
     }
 
