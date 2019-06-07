@@ -10,6 +10,7 @@ EventEmitter.prototype.addListener = function (event, callback) {
   return this;
 };
 
+EventEmitter.prototype.off = 
 EventEmitter.prototype.removeListener = function (event, callback) {
   this._events = this._events || {};
   if (event in this._events === false)  return;

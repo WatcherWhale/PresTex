@@ -30,7 +30,7 @@ function LoadExamplePresentation()
     tex.color = "blue";
     slide.objects.push(tex);
 
-    var tex2 = new LatexElement(slide.objects.length,1250,200,"r=\\frac{1}{2} \\cdot \\theta");
+    var tex2 = new LatexElement(slide.objects.length,1250,200,"r=\\frac{1}{2} \\cdot \\theta : \\theta \\in \\left[0,10\\right]");
     tex2.fontSize = 30;
     tex2.color = "red";
     slide.objects.push(tex2);
@@ -83,5 +83,5 @@ function LoadExamplePresentation()
     slide2.graphs[1].visible = false;
 
     //Set the presentation to the example presentation
-    presentation = example;
+    SetPresentation(example);
 }

@@ -15,8 +15,11 @@ function DrawEditorSlide(slide)
 
     $("div.body").css({"left":x,"top":y,"height":h,"width":w});
 
-    slide.Render({x:x,y:y,s:shrink});
-    PlotGraphs(slide,shrink);
+    ExecuteAsync(function()
+    {
+        slide.Render({x:x,y:y,s:shrink});
+        PlotGraphs(slide.graphs,shrink);
+    });
 
     renderEvents.emit("drawn",{'target':'editor'});
 }
@@ -27,12 +30,12 @@ function DrawSlide(slide)
     $("div.body").css({"left":0,"top":0,"height":'100%',"width":'100%',"overflow":"hidden"});
 
     slide.Render({x:0,y:0,s:shrink});
-    PlotGraphs(slide,shrink);
+    PlotGraphs(slide.graphs,shrink);
 
     renderEvents.emit("drawn",{'target':'present'});
 }
 
-function PlotGraphs(slide,shrink)
+function PlotGraphs(graphs,shrink)
 {
     if($("div.body canvas.plots").length == 0)
     {
@@ -51,9 +54,9 @@ function PlotGraphs(slide,shrink)
     Plotter.DrawGraphLines(ctx);
     Plotter.DrawAxes(ctx);
 
-    for (let i = 0; i < slide.graphs.length; i++)
+    for (let i = 0; i < graphs.length; i++)
     {
-        const graph = slide.graphs[i];
+        const graph = graphs[i];
         Plotter.PlotGraph(graph,ctx);
     }
 }
@@ -63,3 +66,8 @@ setInterval(function()
     frame++;
     renderEvents.emit("frame",{"frame":frame});
 },1000/frameRate);
+
+function ExecuteAsync(func)
+{
+    setTimeout(func, 0);
+}

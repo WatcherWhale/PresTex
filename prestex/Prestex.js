@@ -1,19 +1,17 @@
 var presentation = new Presentation();
 
-function CreateText(text,x,y)
+function SetPresentation(pres)
 {
-    var slide = presentation.GetCurrentSlide();
-    var txt = new TextElement(slide.objects.length,x,y,text);
-    slide.objects.push(txt);
-
-    DrawEditorSlide(slide);
+    presentation = pres;
+    currentGraphs = pres.slides[0].graphs;
 }
 
-function CreateLatex(text,x,y)
+function NewPresentation()
 {
-    var slide = presentation.GetCurrentSlide();
-    var txt = new LatexElement(slide.objects.length,x,y,text);
-    slide.objects.push(txt);
+    presentation = new Presentation();
+}
 
-    DrawEditorSlide(slide);
+function SavePresentation()
+{
+    //TODO
 }
