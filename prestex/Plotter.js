@@ -166,13 +166,37 @@ class Plotter
         Plotter.graphs.scale = 1;
 
         //Move the graphs
-        Plotter.graphs.previous = Plotter.graphs.current;
-        Plotter.graphs.current = graphs;
+        Plotter.graphs.previous = _.cloneDeep(Plotter.graphs.current);
+        Plotter.graphs.current = _.cloneDeep(graphs);
 
         //Add 0-graphs until the length of the two arrays are the same
         while(Plotter.graphs.previous.length < graphs.length)
         {
-            Plotter.graphs.previous.push(new FunctionGraph("0"));
+            Plotter.graphs.previous.push(new Graph("0"));
+        }
+
+        for (let i = 0; i < Plotter.graphs.previous.length; i++)
+        {
+            const curr = Plotter.graphs.current[i];
+            const prev = Plotter.graphs.previous[i];
+            
+            if(curr.visible == false)
+            {
+                var nG = _.cloneDeep(curr);
+                nG.SetExpression("0");
+                nG.visible = true;
+                Plotter.graphs.current[i] = nG;
+            }
+
+            if(prev.visible == false)
+            {
+                var nG = _.cloneDeep(prev);
+                nG.SetExpression("0");
+                nG.visible = true;
+                Plotter.graphs.previous[i] = nG;
+            }
+
+            //console.log([prev,curr]);
         }
     }
 
