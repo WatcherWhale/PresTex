@@ -101,7 +101,7 @@ function GetColorNames()
         const name = colorArrs[0][i].toLowerCase();
         const hex = colorArrs[1][i]; 
         
-        colors[name] = Color.FromHex(name);
+        colors[name] = Color.FromHex(hex);
     }
 
     return colors;
