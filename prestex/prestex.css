@@ -9,3 +9,13 @@ div.object
 {
     z-index: 1;
 }
+
+div.body
+{
+    transition: all 0.5s;
+}
+
+div.object.chart *
+{
+    transition: all 0.5s;
+}

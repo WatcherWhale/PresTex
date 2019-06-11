@@ -8,6 +8,7 @@ class Element
         this.hide = "false";
 
         this._s = 1;
+        this._selector;
     }
 
     Render(offset)
@@ -37,9 +38,11 @@ class Element
         if($("div.body div.object#" + this.id).length == 0)
         {
             $("div.body").append("<div class='object' id='" + this.id + "'></div>");
+            this._selector = $("div.body div.object#" + this.id);
             return false;
         }
 
+        this._selector = $("div.body div.object#" + this.id);
         return true;
     }
 }
@@ -146,6 +149,9 @@ class CanvasElement extends Element
 }
 
 //TODO: Convert to graph element
+/**
+ * @deprecated
+ */
 class GraphElement extends CanvasElement
 {
     constructor(id,x,y,w,h,expression)
@@ -295,11 +301,14 @@ class ChartElement extends CanvasElement
     Render(offset)
     {
         super.Render(offset);
+        this._selector.toggleClass("chart",true);
         this._data = JSON.parse(this.data);
 
         this._chart = new Chart(this._ctx, {
             type: 'bar',
             data: this._data,
+            responsive: true,
+            scaleFontColor: "#FFFFFF",
             options: {
                 scales: {
                     yAxes: [{

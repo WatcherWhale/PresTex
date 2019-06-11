@@ -67,9 +67,14 @@ function LoadExamplePresentation()
 
     //Get the next slide or create one
     var slide2 = example.GetSlide(1);
+    slide2.style.background = "#222";
+    slide2.style.color = "#fff";
+    slide2.style.plot.showAxes = false;
+    slide2.style.plot.showGraphLines = false;
 
     //Alter the title
     slide2.objects[0].text = "Example: Charts";
+    slide2.objects[0].color = "#fff";
 
     //Show the chart
     slide2.objects[chart.id].hide = "false";
