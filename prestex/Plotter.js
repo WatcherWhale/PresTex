@@ -1,16 +1,26 @@
 class Plotter
 {
-    static ClearCanvas(ctx)
+    /**
+     * Clear the whole canvas
+     */
+    static ClearCanvas()
     {
+        const ctx = Plotter.ctx;
         const h = ctx.canvas.height;
         const w = ctx.canvas.width;
 
         ctx.clearRect(0,0,w,h);
     }
 
-    static PlotGraph(graph,ctx)
+    /**
+     * Plot a graph
+     * @param {Graph} graph A graph
+     */
+    static PlotGraph(graph)
     {
         if(!graph.visible) return;
+
+        const ctx = Plotter.ctx;
 
         //Get constants
         const h = ctx.canvas.height;
@@ -50,9 +60,14 @@ class Plotter
         ctx.stroke(); 
     }
 
-    static DrawAxes(ctx) 
+    /**
+     * Draw the axes
+     */
+    static DrawAxes() 
     {
         if(!Plotter.style.showAxes) return;
+
+        const ctx = Plotter.ctx;
 
         //Get constants
         const h = ctx.canvas.height;
@@ -74,9 +89,14 @@ class Plotter
         ctx.stroke();
     }
 
-    static DrawGraphLines(ctx) 
+    /**
+     * Draw graphlines
+     */
+    static DrawGraphLines() 
     {
         if(!Plotter.style.showGraphLines) return;
+        
+        const ctx = Plotter.ctx;
 
         //Calculate constants
         const h = ctx.canvas.height;
@@ -104,6 +124,11 @@ class Plotter
         ctx.stroke();
     }
 
+    /**
+     * Scale every coordinatenumber with a given factor
+     * @param {Number[]} coor The coordinate
+     * @param {Number} scale The scale
+     */
     static Scale(coor,scale)
     {
         for (let i = 0; i < coor.length; i++)
@@ -114,6 +139,11 @@ class Plotter
         return coor;
     }
 
+    /**
+     * Add two coordinates together
+     * @param {Number[]} coor1 First coordinate
+     * @param {Number[]} coor2 Seccond coordinate
+     */
     static Add(coor1,coor2)
     {
         for (let i = 0; i < coor1.length; i++)
@@ -130,8 +160,11 @@ class Plotter
      */
     static SetNewGraphs(graphs)
     {
+        //Set the conditions to animate
         Plotter.graphs.drawn = false;
         Plotter.graphs.scale = 1;
+
+        //Move the graphs
         Plotter.graphs.previous = Plotter.graphs.current;
         Plotter.graphs.current = graphs;
 
@@ -142,38 +175,49 @@ class Plotter
         }
     }
 
+    /**
+     * Draw all graphs or animate them
+     */
     static DrawGraphs()
     {
         //If the ctx is undefined or all the graphs are drawn return
         if(!Plotter.ctx || Plotter.graphs.drawn) return;
 
-        Plotter.ClearCanvas(Plotter.ctx);
-        Plotter.DrawGraphLines(Plotter.ctx);
+        Plotter.ClearCanvas();
+        Plotter.DrawGraphLines();
+        Plotter.DrawAxes();
         
         //Make a transisiton between the current and the previous graphs
         if(Plotter.graphs.scale - 1/(frameRate * (Plotter.style.transition/1000)) > 0)
         {
+            //Decrease the scale
             Plotter.graphs.scale -= 1/(frameRate * (Plotter.style.transition/1000));
 
+            //Loop through all graphs
             for (let i = 0; i < Plotter.graphs.current.length; i++)
             {
                 const graph1 = Plotter.graphs.previous[i];
                 const graph2 = Plotter.graphs.current[i];
                 
+                //Add the graphs to eachother with a scale
                 var transGraph = Graph.AddGraphs(_.cloneDeep(graph2),_.cloneDeep(graph1),1-Plotter.graphs.scale,Plotter.graphs.scale);
-                Plotter.PlotGraph(transGraph,Plotter.ctx);
+                //Plot the newly created graph
+                Plotter.PlotGraph(transGraph);
             }
         }
         //Just show the current graphs
         else
         {
+            //Set the drawn variable to true because no additional drawing is required
             Plotter.graphs.drawn = true;
+            //Set the graph scale to 0;
             Plotter.graphs.scale = 0;
 
+            //Draw all graphs
             for (let i = 0; i < Plotter.graphs.current.length; i++)
             {
                 const graph = Plotter.graphs.current[i];
-                Plotter.PlotGraph(graph,Plotter.ctx);
+                Plotter.PlotGraph(graph);
             }
         }
     }
