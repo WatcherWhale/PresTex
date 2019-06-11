@@ -1,6 +1,6 @@
 var renderEvents = new EventEmitter();
 var currentGraphs = [];
-var frame = 0;
+//var frame = 0;
 var frameRate = 60;
 
 function DrawEditorSlide(slide)
@@ -53,21 +53,14 @@ function PlotGraphs(graphs,shrink)
 
     var ctx = canvas.getContext("2d");
 
-    Plotter.ClearCanvas(ctx);
-    Plotter.DrawGraphLines(ctx);
-    Plotter.DrawAxes(ctx);
-
-    for (let i = 0; i < graphs.length; i++)
-    {
-        const graph = graphs[i];
-        Plotter.PlotGraph(graph,ctx);
-    }
+    Plotter.ctx = ctx;
+    Plotter.SetNewGraphs(graphs);
 }
 
 setInterval(function()
 {
-    frame++;
-    renderEvents.emit("frame",{"frame":frame});
+    Plotter.DrawGraphs();
+    //renderEvents.emit("frame",{"frame":frame});
 },1000/frameRate);
 
 function ExecuteAsync(func)

@@ -15,6 +15,51 @@ class Graph
         this.expression = expression;
         this._expression = math.compile(this.expression);
     }
+
+    /**
+     * Returns the corrosponding carthesioan coordinates.
+     * @param {Number} t The value of the t axis
+     * @returns {Number[]}
+     */
+    GetCoordinates(t)
+    {
+        //Default value
+        return [t,t];
+    }
+
+    Scale(scale)
+    {
+        this.SetExpression(scale + "(" + this.expression + ")");
+    }
+
+    Add(graph)
+    {
+        this.SetExpression(this.expression + " + " + graph.expression);
+    }
+
+    /**
+     * Add two graphs of the same type together,
+     * this doesn't work with parameter graphs at the moment.
+     * @param {Graph} graph1 The graph to add too
+     * @param {Graph} graph2 The graph to add
+     * @param {Number} scale1 The scale the first graph needs to be scaled with
+     * @param {Number} scale2 The scale the seccond graph needs to be scaled with
+     */
+    static AddGraphs(graph1,graph2,scale1,scale2)
+    {
+        //Just return the first graph
+        if(typeof(graph1) == typeof(ParameterGraph) || typeof(graph2) == typeof(ParameterGraph)) return graph1;
+
+        //Scale both graphs
+        graph1.Scale(scale1);
+        graph2.Scale(scale2);
+
+        //Add graph2 to graph1
+        graph1.Add(graph2);
+
+        //return the new graph
+        return graph1;
+    }
 }
 
 class FunctionGraph extends Graph
