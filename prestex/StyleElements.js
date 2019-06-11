@@ -53,6 +53,8 @@ class Color
         str = str.replaceAll(" ","");
         str = str.toLowerCase();
 
+        if(str.indexOf("#") != -1) return Color.FromHex(str);
+
         var type = str.substr(0,4);
 
         if(type == "rgba")
