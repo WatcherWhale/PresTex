@@ -15,6 +15,12 @@ div.body
     transition: all 0.5s;
 }
 
+div.object
+{
+    transition-duration: 0.5s;
+    transition-property: background, color;
+}
+
 div.object.chart *
 {
     transition: all 0.5s;

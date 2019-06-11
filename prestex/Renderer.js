@@ -1,7 +1,12 @@
 var renderEvents = new EventEmitter();
 var currentGraphs = [];
-//var frame = 0;
+var frame;
 var frameRate = 60;
+
+$(window).ready(function()
+{
+    frame = window.requestAnimationFrame(OnFrame);
+});
 
 function DrawEditorSlide(slide)
 {
@@ -29,11 +34,8 @@ function DrawSlide(slide)
     let shrink = window.innerWidth/1920;
     $("div.body").css({"left":0,"top":0,"height":'100%',"width":'100%',"overflow":"hidden"});
 
-    ExecuteAsync(function()
-    {
-        slide.Render({s:shrink});
-        PlotGraphs(slide.graphs,shrink);
-    });
+    slide.Render({s:shrink});
+    PlotGraphs(slide.graphs,shrink);
 
     renderEvents.emit("drawn",{'target':'present'});
 }
@@ -57,13 +59,9 @@ function PlotGraphs(graphs,shrink)
     Plotter.SetNewGraphs(graphs);
 }
 
-setInterval(function()
+function OnFrame()
 {
     Plotter.DrawGraphs();
-    //renderEvents.emit("frame",{"frame":frame});
-},1000/frameRate);
-
-function ExecuteAsync(func)
-{
-    setTimeout(func, 0);
+    frame = window.requestAnimationFrame(OnFrame);
+    renderEvents.emit("frame",{"frame":frame});
 }

@@ -42,7 +42,7 @@ function LoadExamplePresentation()
     slide.objects.push(tex3);
 
     //Create a chart
-    var chart = new ChartElement(slide.objects.length,10,70,500,500);
+    /*var chart = new ChartElement(slide.objects.length,10,70,500,500);
     chart.hide = "true";
     chart.data = JSON.stringify({
         labels: ['Label 1', 'Label 2', 'Label 3'],
@@ -63,28 +63,27 @@ function LoadExamplePresentation()
         }]
     });
 
-    slide.objects.push(chart);
+    slide.objects.push(chart);*/
 
     //Get the next slide or create one
     var slide2 = example.GetSlide(1);
-    slide2.style.background = "#222";
-    slide2.style.color = "#fff";
-    slide2.style.plot.showAxes = false;
+    slide2.style.plot.showAxes = true;
     slide2.style.plot.showGraphLines = false;
 
     //Alter the title
-    slide2.objects[0].text = "Example: Charts";
-    slide2.objects[0].color = "#fff";
+    slide2.objects[0].text = "Example: Animating Graphs";
 
     //Show the chart
-    slide2.objects[chart.id].hide = "false";
+    //slide2.objects[chart.id].hide = "false";
 
     //Hide other elements
-    slide2.objects[1].hide = "true";
+    slide2.objects[1].text = "f(x)=sin(2x)";
+
     slide2.objects[2].hide = "true";
     slide2.objects[3].hide = "true";
 
-    slide2.graphs[0].visible = false;
+    slide2.graphs[0].SetExpression("sin(2x)");
+
     slide2.graphs[1].visible = false;
 
     //Set the presentation to the example presentation
