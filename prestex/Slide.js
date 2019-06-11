@@ -15,12 +15,12 @@ class Slide
                 axes:
                 {
                     thickness: 2,
-                    color: "rgb(128,128,128)"
+                    color: new Color(128,128,128)
                 },
                 lines:
                 {
                     thickness: 2,
-                    color: "rgb(230,230,230)"
+                    color: new Color(230,230,230)
                 },
                 showAxes: true,
                 showGraphLines: true,

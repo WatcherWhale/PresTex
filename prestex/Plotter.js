@@ -75,8 +75,8 @@ class Plotter
 
         //Start path and set styling
         ctx.beginPath();
-        ctx.strokeStyle = Plotter.style.axes.color; 
-        ctx.strokeWidth = Plotter.style.axes.thickness;
+        ctx.strokeStyle = Plotter.style.axes.color.ToString(); 
+        ctx.lineWidth = Plotter.style.axes.thickness;
 
         //X-Axis
         ctx.moveTo(0,Plotter.origin.y * h);
@@ -105,7 +105,8 @@ class Plotter
         const offsetY = (Plotter.origin.y * h) % Plotter.scale;
 
         ctx.beginPath();
-        ctx.strokeStyle = "rgb(230,230,230)";
+        ctx.strokeStyle = Plotter.style.lines.color.ToString();
+        ctx.lineWidth = Plotter.style.lines.thickness;
 
         //X Lines
         for(var y = offsetY; y <= h; y += Plotter.scale)
@@ -228,12 +229,19 @@ Plotter.graphs = {current:[],previous:[],scale:0,drawn:false};
 Plotter.origin = {x:1/2,y:1/2};
 Plotter.scale = 1;
 Plotter.precision = 0.1;
-Plotter.style = {
-    axes:{
+Plotter.style = 
+{
+    axes:
+    {
         thickness: 2,
-        color: "rgb(128,128,128)"
+        color: new Color(128,128,128)
+    },
+    lines:
+    {
+        thickness: 2,
+        color: new Color(230,230,230)
     },
     showAxes: true,
     showGraphLines: true,
-    transition:500
-}
+    transition: 300
+};
