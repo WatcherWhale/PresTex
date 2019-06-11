@@ -28,7 +28,7 @@ class Plotter
 
         ctx.beginPath();
         ctx.lineWidth = graph.thickness;
-        ctx.strokeStyle = graph.color;
+        ctx.strokeStyle = graph.GetColor().ToString();
 
         const startT = graph.interval[0] == "R" ? -Plotter.origin.x * w : graph.interval[0];
         const endI = graph.interval[0] == "R" ? (ctx.canvas.width)/Plotter.precision : graph.interval[1]/Plotter.precision;

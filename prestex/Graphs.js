@@ -17,6 +17,14 @@ class Graph
     }
 
     /**
+     * @returns {Color}
+     */
+    GetColor()
+    {
+        return Color.FromString(this.color);
+    }
+
+    /**
      * Returns the corrosponding carthesioan coordinates.
      * @param {Number} t The value of the t axis
      * @returns {Number[]}
