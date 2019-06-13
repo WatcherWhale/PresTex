@@ -30,7 +30,7 @@ class Plotter
         ctx.lineWidth = graph.thickness;
         ctx.strokeStyle = graph.GetColor().ToString();
 
-        const startT = graph.interval[0] == "R" ? -Plotter.origin.x * w : graph.interval[0];
+        const startT = graph.interval[0] == "R" ? -Plotter.origin.x * w : graph.interval[0]/Plotter.precision;
         const endI = graph.interval[0] == "R" ? (ctx.canvas.width)/Plotter.precision : graph.interval[1]/Plotter.precision;
         const startI = Math.round(startT/Plotter.precision);
 
