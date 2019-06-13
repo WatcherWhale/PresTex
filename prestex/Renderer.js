@@ -5,9 +5,14 @@ var frameRate = 60;
 
 $(window).ready(function()
 {
+    //Start the animations
     frame = window.requestAnimationFrame(OnFrame);
 });
 
+/**
+ * Draw a slide for editor mode
+ * @param {Slide} slide The slide to draw
+ */
 function DrawEditorSlide(slide)
 {
     //TODO: Limit width too
@@ -20,15 +25,16 @@ function DrawEditorSlide(slide)
 
     $("div.body").css({"left":x,"top":y,"height":h,"width":w});
 
-    ExecuteAsync(function()
-    {
-        slide.Render({s:shrink});
-        PlotGraphs(slide.graphs,shrink);
-    });
+    slide.Render({s:shrink});
+    PlotGraphs(slide.graphs,shrink);
 
     renderEvents.emit("drawn",{'target':'editor'});
 }
 
+/**
+ * Draw a slide for presentation mode
+ * @param {Slide} slide The slide to draw
+ */
 function DrawSlide(slide)
 {
     let shrink = window.innerWidth/1920;
@@ -40,6 +46,11 @@ function DrawSlide(slide)
     renderEvents.emit("drawn",{'target':'present'});
 }
 
+/**
+ * Set new graphs to render on the next frame
+ * @param {Graph[]} graphs An array of all the graphs to render
+ * @param {Number} shrink The scale factor for the graphs
+ */
 function PlotGraphs(graphs,shrink)
 {
     if($("div.body canvas.plots").length == 0)

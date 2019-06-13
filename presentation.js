@@ -8,7 +8,7 @@ $(window).ready(function()
 
     $("body").on('keydown',function(e)
     {
-        if(e.which == keys.right)
+        if(e.which == keys.right || e.which == keys.space || e.which == keys.enter)
         {
             presentation.NextSlide();
             DrawSlide(presentation.GetCurrentSlide());

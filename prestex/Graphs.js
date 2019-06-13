@@ -1,5 +1,8 @@
 class Graph
 {
+    /**
+     * @param {String} expression A math expression
+     */
     constructor(expression)
     {
         this.SetExpression(expression);
@@ -72,6 +75,9 @@ class Graph
 
 class FunctionGraph extends Graph
 {
+    /**
+     * @param {String} expression A function expression
+     */
     constructor(expression)
     {
         super(expression);
@@ -85,6 +91,9 @@ class FunctionGraph extends Graph
 
 class PolarGraph extends Graph
 {
+    /**
+     * @param {String} expression A polar expression
+     */
     constructor(expression)
     {
         super(expression);
@@ -103,6 +112,9 @@ class PolarGraph extends Graph
 
 class ParameterGraph extends Graph
 {
+    /**
+     * @param {String} expression A parameter expression, divided with a ';'
+     */
     constructor(expression)
     {
         this.color = "rgb(128,128,128)";

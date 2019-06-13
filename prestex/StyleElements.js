@@ -1,5 +1,10 @@
 class Color
 {
+    /**
+     * @param {Number} r red
+     * @param {Number} g green
+     * @param {Number} b blue
+     */
     constructor(r,g,b)
     {
         this.r = r;
@@ -8,6 +13,9 @@ class Color
         this.a = 1;
     }
 
+    /**
+     * @returns {String}
+     */
     ToString()
     {
         return "rgba(" + this.r + "," + this.g + "," + this.b + "," + this.a + ")";
