@@ -103,8 +103,8 @@ class PolarGraph extends Graph
     {
         var r = this._expression.eval({t:t});
         
-        var x = math.eval("r*cos(t)",{r:r,t:t});
-        var y = math.eval("r*sin(t)",{r:r,t:t});
+        var x = r*Math.cos(t);
+        var y = r*Math.sin(t);
 
         return [x,y];
     }
