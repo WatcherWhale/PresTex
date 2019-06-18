@@ -15,3 +15,8 @@ function SavePresentation()
 {
     //TODO
 }
+
+function LoadPresentation(func)
+{
+    presentation = func();
+}

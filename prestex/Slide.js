@@ -47,4 +47,9 @@ class Slide
             obj.Render(offset);
         });
     }
+
+    GetNewObjectId()
+    {
+        return this.objects.length;
+    }
 }
