@@ -89,6 +89,22 @@ class FunctionGraph extends Graph
     }
 }
 
+class InverseFunctionGraph extends Graph
+{
+    /**
+     * @param {String} expression An inverse function expression
+     */
+    constructor(expression)
+    {
+        super(expression);
+    }
+
+    GetCoordinates(t)
+    {
+        return [this._expression.eval({y:t}),t];
+    }
+}
+
 class PolarGraph extends Graph
 {
     /**
@@ -145,4 +161,3 @@ class ParameterGraph extends Graph
         }
     }
 }
-
