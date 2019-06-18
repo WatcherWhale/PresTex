@@ -3,7 +3,7 @@ class Presentation
     constructor()
     {
         this.slides = [];
-        this.slides.push(new Slide());
+        this.slides.push(new Slide(0));
         this.currentSlide = 0;
     }
 
@@ -22,9 +22,9 @@ class Presentation
      */
     GetSlide(i)
     {
-        if(i >= this.slides.length)
+        if(i == this.slides.length)
         {
-            var slide = new Slide();
+            var slide = new Slide(i);
 
             //Copies the objects of the previous slide to the this slide
             slide.objects = _.cloneDeep(this.slides[this.slides.length - 1].objects);

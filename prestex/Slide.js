@@ -1,7 +1,8 @@
 class Slide
 {
-    constructor()
+    constructor(id)
     {
+        this.id = id;
         this.objects = [];
         this.graphs = [];
 

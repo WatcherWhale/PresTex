@@ -14,6 +14,7 @@ $(window).ready(function()
         }
         else if(e.which == keys.left)
         {
+            $("div.body").empty();
             presentation.PreviousSlide();
             DrawSlide(presentation.GetCurrentSlide());
         }
