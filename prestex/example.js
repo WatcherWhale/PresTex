@@ -41,34 +41,10 @@ function LoadExamplePresentation()
     tex3.displayMode = "false";
     slide.objects.push(tex3);
 
-    //Create a chart
-    /*var chart = new ChartElement(slide.objects.length,10,70,500,500);
-    chart.hide = "true";
-    chart.data = JSON.stringify({
-        labels: ['Label 1', 'Label 2', 'Label 3'],
-        datasets: [{
-            label: 'Amount',
-            data: [12, 19, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-            ],
-            borderWidth: 1
-        }]
-    });
-
-    slide.objects.push(chart);*/
-
     //Get the next slide or create one
     var slide2 = example.GetSlide(1);
     slide2.style.plot.showAxes = true;
-    slide2.style.plot.showGraphLines = false;
+    slide2.style.plot.showGraphLines = true;
 
     //Alter the title
     slide2.objects[0].text = "Example: Animating Graphs";
